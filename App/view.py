@@ -51,7 +51,6 @@ def initCatalog():
     """
     return controller.initCatalog()
 
-
 def loadData(catalog):
     """
     Carga los libros en la estructura de datos
@@ -80,10 +79,16 @@ def printBestBooks(books):
     else:
         print('No se encontraron libros')
 
-
 def printSortResults(ord_books, sample=10):
-    # TODO completar modificaciones para el laboratorio 4
-    pass
+
+    size = lt.size(ord_books)
+    if size > sample:
+        print("Los primeros ", sample, " libros ordenados son:")
+    i=1
+    while i <= sample:
+        book = lt.getElement(ord_books,i)
+        print('Titulo: ' + book['title'] + ' ISBN: ' + book['isbn'] + ' Rating: ' + book['average_rating'])
+        i+=1
 
 catalog = None
 
@@ -123,7 +128,8 @@ while True:
         size = input("Indique tamaño de la muestra: ")
         result = controller.sortBooks(catalog, int(size))
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
-                                          str(result))
+                                          str(result[0]))
+        printSortResults(result[1])
 
     else:
         sys.exit(0)
